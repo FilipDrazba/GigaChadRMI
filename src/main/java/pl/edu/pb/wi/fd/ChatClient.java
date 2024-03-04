@@ -5,5 +5,5 @@ import java.rmi.RemoteException;
 
 public interface ChatClient extends Remote {
     void receiveMessage(String message) throws RemoteException;
-    void sendMessage(String message) throws RemoteException;
+    void gameMove(int index) throws RemoteException;
 }

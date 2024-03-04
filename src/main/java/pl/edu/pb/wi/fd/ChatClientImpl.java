@@ -15,11 +15,11 @@ public class ChatClientImpl extends UnicastRemoteObject implements ChatClient {
 
     @Override
     public void receiveMessage(String message) throws RemoteException {
-        System.out.println("\nReceived message: " + message + "\nEnter your message: ");
+        System.out.println("\n"+ message+"\nEnter your move: ");
     }
 
-    public void sendMessage(String message) throws RemoteException {
-        server.broadcastMessage(message);
+    public void gameMove(int index) throws RemoteException {
+        server.gameMove(index);
     }
 
     public static void main(String[] args) {
@@ -28,10 +28,20 @@ public class ChatClientImpl extends UnicastRemoteObject implements ChatClient {
             ChatClient client = new ChatClientImpl(server);
 
             Scanner scanner = new Scanner(System.in);
+            System.out.println(
+                    """
+                        0 | 1 | 2
+                       ---+---+---
+                        3 | 4 | 5
+                       ---+---+---
+                        6 | 7 | 8
+                    """
+            );
+
+            System.out.print("Enter your move: ");
             while (true) {
-                System.out.print("Enter your message: ");
-                String message = scanner.nextLine();
-                client.sendMessage(message);
+                int move = scanner.nextInt();
+                client.gameMove(move);
             }
         } catch (Exception e) {
             e.printStackTrace();
